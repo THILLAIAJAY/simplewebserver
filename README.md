@@ -36,10 +36,51 @@ Start the server script and check for errors.
 Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
 ## PROGRAM:
+```
+from http.server import HTTPServer, BaseHTTPRequestHandler
+content = """
+<table border="1">
+    <tr>
+        <th>Layer</th>
+        <th>Protocols</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Application Layer</td>
+        <td>HTTP, HTTPS, FTP, SMTP, POP3, IMAP, DNS, TELNET, SNMP</td>
+        <td>Handles high-level protocols, including web browsing, email, and remote access.</td>
+    </tr>
+    <tr>
+        <td>Transport Layer</td>
+        <td>TCP, UDP</td>
+        <td>Provides end-to-end communication and error recovery.</td>
+    </tr>
+    <tr>
+        <td>Internet Layer</td>
+        <td>IP, ICMP, ARP, IGMP</td>
+        <td>Handles addressing, routing, and error reporting.</td>
+    </tr>
+    <tr>
+        <td>Network Access Layer</td>
+        <td>Ethernet, Wi-Fi, PPP, SLIP</td>
+        <td>Defines how data is physically transmitted over the network.</td>
+    </tr>
+</table>
 
-
+"""
+class myhandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("request received")
+        self.send_response(200)
+        self.send_header('content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+server_address = ('',80)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
+```
 ## OUTPUT:
-
-
+![Screenshot (2)](https://github.com/user-attachments/assets/ca55edcd-7ade-4d03-83bf-0bab5ea7c485)
 ## RESULT:
 The program for implementing simple webserver is executed successfully.
